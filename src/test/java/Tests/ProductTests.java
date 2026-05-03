@@ -71,7 +71,7 @@ public class ProductTests {
         Assert.assertEquals(res.statusCode(), 201);
         Assert.assertEquals(returnedNewOrder.getProductOrderId().getFirst(), productID);
         Assert.assertEquals(returnedNewOrder.getMessage(), PLACED_ORDER_SUCCESS);
-        assertThat(returnedNewOrder.getOrders().getFirst(), not(equalTo(null)));
+        assertThat(returnedNewOrder.getOrders().get(0), not(equalTo(null)));
     }
 
 

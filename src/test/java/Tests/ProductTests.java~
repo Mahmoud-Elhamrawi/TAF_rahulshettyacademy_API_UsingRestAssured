@@ -75,6 +75,7 @@ public class ProductTests {
     }
 
 
+
 @Story("get order details test case")
     @Test(description = "get order details test case")
     public void validGetOrderDetailsTC() {
@@ -101,6 +102,7 @@ public class ProductTests {
         assertThat(returnedOrderData.getDisplayOderData().getOrderVersion(), not(equalTo(null)));
         assertThat(returnedOrderData.getDisplayOderData().getOrderPrice(), not(equalTo(null)));
     }
+
 
 
     @Story("delete product test case")
