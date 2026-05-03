@@ -1,0 +1,69 @@
+package ApiReq;
+
+import Models.Serolization.list_orders;
+import Models.Serolization.sub_order;
+import io.restassured.response.Response;
+
+import java.io.File;
+import java.net.URI;
+import java.util.Map;
+
+import static Routes.Endpoints.*;
+import static Specs.SpecReq.*;
+import static Steps.UserSteps.getUserToken;
+import static io.restassured.RestAssured.given;
+
+public class ProductReq {
+
+
+    public static Response createNewProductReq(Map<String, Object> productDataForm, String productImage) {
+        return given()
+                .spec(reqSpecCreteProd())
+                .header("Authorization", getUserToken())
+                .formParams(productDataForm)
+                .multiPart("productImage", new File(productImage), "image/jpeg")
+                .when().post(CREATE_PRODUCT)
+                .then().log().all()
+                .extract().response();
+    }
+
+
+    public static Response createNewOrderReq(list_orders orders) {
+        return given()
+                .spec(reqSpecCreateOrder())
+                .header("Authorization", getUserToken())
+                .body(orders)
+                .when().post(CREATE_ORDER)
+                .then().log().all()
+                .extract().response();
+
+    }
+
+
+       // api/ecom/order/get-orders-details?id={{orderID}}
+
+    public static Response getOrderDetailsReq(String orderId) {
+        return given()
+                .spec(reqSpecGetOrderDetails())
+                .queryParam("id", orderId)
+                .header("Authorization", getUserToken())
+                .when().get(GET_ORDER_DETAILS)
+                .then().log().all()
+                .extract().response();
+    }
+    //{{baseURL}}/api/ecom/product/delete-product/69f73c7cf86ba51a659d7f74
+
+    public static Response deleteOrderReq(String productId) {
+        return given()
+                .spec(reqSpecGetOrderDetails())
+                .header("Authorization", getUserToken())
+                .when().delete(DELETE_ORDER)
+                .then().log().all()
+                .extract().response();
+    }
+
+
+
+
+
+}

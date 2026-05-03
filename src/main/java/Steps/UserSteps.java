@@ -1,0 +1,44 @@
+package Steps;
+
+import ApiReq.AuthReq;
+import Models.De_Serolization.UserLogin;
+import Models.Serolization.UserAuth;
+import io.restassured.response.Response;
+
+public class UserSteps {
+    public static UserAuth createUserData() {
+        return new UserAuth("t0svtxyz11@gmail.com", "mah@123456M");
+    }
+
+    public static UserAuth createInValidUserData() {
+        return new UserAuth("t0svtxyz11@gmail.com", "mah@123456Mcc");
+    }
+
+
+
+    public static String getUserID()
+    {
+        //login
+        Response res = new AuthReq().authRequest(createUserData());
+
+        //get user id
+        return res.body().as(UserLogin.class).getUserId();
+
+    }
+
+
+
+
+    public static String getUserToken()
+    {
+        //login
+        Response res = new AuthReq().authRequest(createUserData());
+
+        //get user id
+        return res.body().as(UserLogin.class).getToken();
+
+    }
+
+
+
+}
